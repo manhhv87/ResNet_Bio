@@ -19,12 +19,12 @@ class RGBDepthNet(nn.Module):
             nn.ReLU()
         )
 
-        self.rgb_resnet = models.resnet18(weights='ResNet18_Weights.DEFAULT')
+        self.rgb_resnet = models.resnet50(weights='ResNet50_Weights.DEFAULT')
         # Modify the first conv layer to accept 32 channels instead of 3
         self.rgb_resnet.conv1 = nn.Conv2d(
             3, 64, kernel_size=7, stride=2, padding=3, bias=False)
 
-        self.depth_resnet = models.resnet18(weights=None)
+        self.depth_resnet = models.resnet50(weights=None)
         self.depth_resnet.conv1 = nn.Conv2d(
             1, 64, kernel_size=7, stride=2, padding=3, bias=False)
 
