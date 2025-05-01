@@ -12,7 +12,7 @@ os.makedirs("results", exist_ok=True)
 
 # Data
 train_loader, val_loader = get_dataloaders(
-    json_path='data/GroundTruth_All_388_Images.json',
+    json_path='data/train/train.json',
     image_dir='data/train',
     batch_size=16
 )
@@ -42,6 +42,14 @@ for epoch in range(100):
     fresh_loss, dia_loss, height_loss, dry_loss, leaf_loss = 0, 0, 0, 0, 0
 
     for rgb, depth, y1, y2, y3, y4 in train_loader:
+        # o1 = [fresh, diameter, leaf]
+        # o2 = [height]
+        # o3 = [dry]
+        # o4 = [leaf]
+        # y1 = [fresh, diameter, leaf]
+        # y2 = [height]
+        # y3 = [dry]
+        # y4 = [leaf]        
         rgb, depth = rgb.to(device), depth.to(device)
         y1, y2, y3, y4 = y1.to(device), y2.to(device), y3.to(device), y4.to(device)
 
