@@ -33,7 +33,7 @@ def predict(model, rgb_tensor, depth_tensor, device):
 
     results = {
         "FreshWeight": out1[0, 0].item(),
-        "DryWeight": out1[0, 1].item(),  # out3 alternative
+        "DryWeight": out3[0, 1].item(),  
         "Diameter": out1[0, 2].item(),
         "Height": out2[0, 0].item(),
         "LeafArea": out4[0, 0].item()
