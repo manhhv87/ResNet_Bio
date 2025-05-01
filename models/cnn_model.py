@@ -87,13 +87,14 @@ class LettuceNet(nn.Module):
 
         # Depth branch
         x_depth = self.depth_conv(depth)
+        x_depth = x_depth.repeat(1, 3, 1, 1)        # fix: convert 1 channel to 3
         x_depth = self.depth_backbone(x_depth)
         x_depth = self.depth_pool(x_depth)
         x_depth = torch.flatten(x_depth, 1)
-        x_depth_feat = self.depth_fc[:-1](x_depth)  # extract 256-dim
+        x_depth_feat = self.depth_fc[:-1](x_depth)  # [B, 256]
 
         # Merged features
-        merged = torch.cat([x_rgb_feat, x_depth_feat], dim=1)
+        merged = torch.cat([x_rgb_feat, x_depth_feat], dim=1)  # [B, 512]
         shared_out = self.shared_fc(merged)
 
         # Outputs
