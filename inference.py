@@ -1,7 +1,7 @@
 import torch
 from PIL import Image
 from torchvision import transforms
-from models.model import RGBDepthNet
+from models.cnn_model import RGBDepthNet
 
 
 def load_model(weights_path, device):
